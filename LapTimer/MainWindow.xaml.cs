@@ -16,7 +16,16 @@ using System.Windows.Shapes;
 namespace LapTimer
 {
     /// <summary>
+    /// Loren Olsen
+    /// ECET 230 
+    /// Dec 14 2021
     /// Interaction logic for MainWindow.xaml
+    /// Final project for ECET230 Class
+    /// Im hoping to create a simple mx lap timer with RFID tages and a reader.
+    /// This will be controlled by an arduino which will send data (tag ID) to my pc via a serial protocol
+    /// Tag number will be parsed to a rider name/number and printed to screen with lap time and some other stuff maybe
+    /// 
+    /// 
     /// </summary>
     public partial class MainWindow : Window
     {
