@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.IO.Ports;
+
 
 namespace LapTimer
 {
@@ -35,7 +37,7 @@ namespace LapTimer
 
         SerialPort serialPort = new SerialPort();
 
-        SolarCalc solarCalc = new SolarCalc();
+        //SolarCalc solarCalc = new SolarCalc();
 
         StringBuilder stringBuilderSend = new StringBuilder("###1111196");
 
@@ -95,14 +97,14 @@ namespace LapTimer
 
 
 
-            if (checkBoxHistory.IsChecked == true)
-            {
-                txtRecieved.Text = newPacket + txtRecieved.Text;
-            }
-            else
-            {
-                txtRecieved.Text = newPacket;
-            }
+            //if (checkBoxHistory.IsChecked == true)
+            //{
+            //    txtRecieved.Text = newPacket + txtRecieved.Text;
+            //}
+            //else
+            //{
+            //    txtRecieved.Text = newPacket;
+            //}
             txtPacketLength.Text = newPacket.Length.ToString();
             int calChkSum = 0;
             if (newPacket.Length > 37)
@@ -164,37 +166,37 @@ namespace LapTimer
             }
         }
 
-        private void DisplaySolarData(string newPacket)
-        {
-            solarCalc.ParseSolarData(newPacket);
-            txtSolarVoltage.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[0]);
-            txtBatVolt.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[2]);
-            txtBatCurrent.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[2]);
-            txtLED1Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[4]);
-            txtLED2Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[3]);
+        //private void DisplaySolarData(string newPacket)
+        //{
+        //    solarCalc.ParseSolarData(newPacket);
+        //    txtSolarVoltage.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[0]);
+        //    txtBatVolt.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[2]);
+        //    txtBatCurrent.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[2]);
+        //    txtLED1Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[4]);
+        //    txtLED2Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[3]);
 
 
 
-            //I did this, Wayne got some other stuff in his vids!
-            //int solarADCValue = Convert.ToInt32(txtAN1.Text);
-            //double solarVoltage = 0;
+        //    //I did this, Wayne got some other stuff in his vids!
+        //    //int solarADCValue = Convert.ToInt32(txtAN1.Text);
+        //    //double solarVoltage = 0;
 
-            //solarVoltage = 5.5 / (3300.00 / solarADCValue);          //Test this to find math ????
-            ////solarVoltage = 5.5 / (solarADCValue / 3300);
+        //    //solarVoltage = 5.5 / (3300.00 / solarADCValue);          //Test this to find math ????
+        //    ////solarVoltage = 5.5 / (solarADCValue / 3300);
 
 
-            //if (solarVoltage >= 1.50)
-            //{
-            //    ButtonClicked(0, 1);
-            //}
-            //else
-            //{
-            //    ButtonClicked(0, 0);
-            //}
+        //    //if (solarVoltage >= 1.50)
+        //    //{
+        //    //    ButtonClicked(0, 1);
+        //    //}
+        //    //else
+        //    //{
+        //    //    ButtonClicked(0, 0);
+        //    //}
 
-            //string txtSolarVol = solarVoltage.ToString("0.000");
-            //txtSolarVoltage.Text = txtSolarVol;
-        }
+        //    //string txtSolarVol = solarVoltage.ToString("0.000");
+        //    //txtSolarVoltage.Text = txtSolarVol;
+        //}
 
         private void btnOpenClose_Click(object sender, RoutedEventArgs e)
         {

@@ -5,30 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LapTimer"
         mc:Ignorable="d"
-        Title="LapTimer" Height="450" Width="800">
+        Title="LapTimer" Height="600" Width="800">
 
     <!--xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"-->
 
-    <StackPanel Margin="0" Background="Black" >
-        
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Width="65" Margin="5" >Rider</Label>
-            
-            
+    <StackPanel Background="White" >
+
+        <StackPanel HorizontalAlignment="Left" MaxWidth="600">
+
             <StackPanel Orientation="Horizontal">
-                <Label Width="65" FontSize="72">Name</Label>
-                <TextBox x:Name="txtCalChkSum" Width="65" FontSize="72"/>
+                <Button x:Name="btnOpenClose" Content="Open" Click="btnOpenClose_Click"/>
+                <Button x:Name="btnClear" Content="Clear" Click="btnClear_Click"/>
+                <ComboBox x:Name="comboBox1" Width="65" MouseEnter="comboBox1_MouseEnter"/>
             </StackPanel>
-            
-            
+            <Label Margin="5" FontSize="72">Rider</Label>
+
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="72">Name:</Label>
+                <TextBox x:Name="txtName" FontSize="72"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="72">Bike #:</Label>
+                <TextBox x:Name="txtBikeNumber" FontSize="72"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="72">Lap #:</Label>
+                <TextBox x:Name="txtLapNumber" FontSize="72"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="72">Lap Time:</Label>
+                <TextBox x:Name="txtLapTime" FontSize="72"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right">
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="36">Last Lap:</Label>
+                <TextBox x:Name="txtLastLap" FontSize="36"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="36">Fastest:</Label>
+                <TextBox x:Name="txtFastest" FontSize="36"/>
+            </StackPanel>
+
+
         </StackPanel>
 
 
-
-        
-        
-        
-       
     </StackPanel>
+    
+    
 
 </Window>
