@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LapTimer"
         mc:Ignorable="d"
-        Title="LapTimer" Height="600" Width="800">
+        Title="LapTimer" Height="1200" Width="1200">
 
     <!--xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"-->
 
     <StackPanel Background="White" >
-
-        <StackPanel HorizontalAlignment="Left" MaxWidth="600">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="800">
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnOpenClose" Content="Open" Click="btnOpenClose_Click"/>
@@ -42,24 +42,15 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Right">
-
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal">
-                <Label FontSize="36">Last Lap:</Label>
-                <TextBox x:Name="txtLastLap" FontSize="36"/>
+                <Label FontSize="18">Fastest:</Label>
+                <TextBox x:Name="txtFastestlap" FontSize="18"/>
             </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Label FontSize="36">Fastest:</Label>
-                <TextBox x:Name="txtFastest" FontSize="36"/>
-            </StackPanel>
-
-
+            <StackPanel Orientation="Vertical"></StackPanel>
+            
         </StackPanel>
 
-
     </StackPanel>
-    
-    
 
 </Window>

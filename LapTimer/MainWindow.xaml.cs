@@ -72,14 +72,16 @@ namespace LapTimer
             string text = serialPort.ReadLine();
             //txtRecieved.Text = text;
 
-            if (txtRecieved.Dispatcher.CheckAccess())
-            {
-                UpdateUI(text);
-            }
-            else
-            {
-                txtRecieved.Dispatcher.Invoke(() => { UpdateUI(text); });
-            }
+            UpdateUI(text);
+
+            //if (txtRecieved.Dispatcher.CheckAccess())
+            //{
+            //    UpdateUI(text);
+            //}
+            //else
+            //{
+            //    txtRecieved.Dispatcher.Invoke(() => { UpdateUI(text); });
+            //}
 
         }
 
@@ -105,7 +107,7 @@ namespace LapTimer
             //{
             //    txtRecieved.Text = newPacket;
             //}
-            txtPacketLength.Text = newPacket.Length.ToString();
+            //txtPacketLength.Text = newPacket.Length.ToString();
             int calChkSum = 0;
             if (newPacket.Length > 37)
             {
@@ -114,29 +116,29 @@ namespace LapTimer
                 int l = 3;  //packet length is 3 chars
                 if (newPacket.Substring((nextIndex(i, l)), l) == "###")
                 {
-                    txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
-                    int numberPackets = Convert.ToInt32(txtPacketNum.Text);
+                    //txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    //int numberPackets = Convert.ToInt32(txtPacketNum.Text);
 
-                    if (numberPackets == 999)
-                    {
-                        OverFlowNumber++;
-                        txtOverFlow.Text = Convert.ToString(OverFlowNumber);
-                    }
+                    //if (numberPackets == 999)
+                    //{
+                    //    OverFlowNumber++;
+                    //    txtOverFlow.Text = Convert.ToString(OverFlowNumber);
+                    //}
 
-                    newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
+                    //newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
 
                     l = 4;  //Analog ins are 4 chars each
 
-                    txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
-                    txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
-                    txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
-                    txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
-                    txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
-                    txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
-                    txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    //txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
+                    //txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
+                    //txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
+                    //txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
+                    //txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
+                    //txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
+                    //txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
 
                     l = 3;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
-                    txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
 
                     for (i = 3; i < 34; i++)
                     {
@@ -144,59 +146,28 @@ namespace LapTimer
                     }
                     calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
 
-                    txtCalChkSum.Text = Convert.ToString(calChkSum);
+                    //txtCalChkSum.Text = Convert.ToString(calChkSum);
                     int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
                     if (recChkSum == calChkSum)
                     {
-                        DisplaySolarData(newPacket);
+                        //DisplaySolarData(newPacket);
                     }
 
                     else
                     {
                         chkSumError++;
-                        txtChkSumError.Text = Convert.ToString(chkSumError);
+                        //txtChkSumError.Text = Convert.ToString(chkSumError);
                     }
                 }
                 else
                 {
                     chkSumError++;
-                    txtChkSumError.Text = Convert.ToString(chkSumError);
+                    //txtChkSumError.Text = Convert.ToString(chkSumError);
                 }
 
             }
         }
 
-        //private void DisplaySolarData(string newPacket)
-        //{
-        //    solarCalc.ParseSolarData(newPacket);
-        //    txtSolarVoltage.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[0]);
-        //    txtBatVolt.Text = solarCalc.GetVoltage(solarCalc.analogVoltage[2]);
-        //    txtBatCurrent.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[2]);
-        //    txtLED1Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[4]);
-        //    txtLED2Current.Text = solarCalc.GetCurrent(solarCalc.analogVoltage[1], solarCalc.analogVoltage[3]);
-
-
-
-        //    //I did this, Wayne got some other stuff in his vids!
-        //    //int solarADCValue = Convert.ToInt32(txtAN1.Text);
-        //    //double solarVoltage = 0;
-
-        //    //solarVoltage = 5.5 / (3300.00 / solarADCValue);          //Test this to find math ????
-        //    ////solarVoltage = 5.5 / (solarADCValue / 3300);
-
-
-        //    //if (solarVoltage >= 1.50)
-        //    //{
-        //    //    ButtonClicked(0, 1);
-        //    //}
-        //    //else
-        //    //{
-        //    //    ButtonClicked(0, 0);
-        //    //}
-
-        //    //string txtSolarVol = solarVoltage.ToString("0.000");
-        //    //txtSolarVoltage.Text = txtSolarVol;
-        //}
 
         private void btnOpenClose_Click(object sender, RoutedEventArgs e)
         {
@@ -268,7 +239,7 @@ namespace LapTimer
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            txtRecieved.Clear();
+            //txtRecieved.Clear();
         }
 
         private void btnBit3_Click(object sender, RoutedEventArgs e)
