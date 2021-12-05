@@ -58,11 +58,11 @@ namespace LapTimer
         private void setSerialPort()
         {
             string[] ports = SerialPort.GetPortNames();
-            foreach (string port in ports)
+            //foreach (string port in ports)
                 //{
                 //    comboBox1.Items.Add(port);
                 //}
-                comboBox1.ItemsSource = ports;
+            comboBox1.ItemsSource = ports;
             comboBox1.SelectedIndex = 0;
 
         }
@@ -70,9 +70,6 @@ namespace LapTimer
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string text = serialPort.ReadLine();
-            //txtRecieved.Text = text;
-
-            UpdateUI(text);
 
             if (txtRecieved.Dispatcher.CheckAccess())
             {
@@ -85,9 +82,14 @@ namespace LapTimer
 
         }
 
+
+        //Tags are
+        //0c 68 24 33
+        //5c c5 f0 32
+
         private void UpdateUI(string newPacket)
         {
-
+            txtRecieved.Text = newPacket;
             //Function that calculates the current index for reading Chars from the data stream
             int i = 0;
             int nextIndex(int a, int l) //l is the length of the current word being read. 
@@ -95,7 +97,7 @@ namespace LapTimer
                 i += l;     //Increment the index for the next time this is called. 
                 return a;   //Return the index we recieved from the previous time this was called. 
             }
-            // Returns the index i after the previous index is added to the word length. 
+            //Returns the index i after the previous index is added to the word length.
 
 
 
@@ -107,66 +109,66 @@ namespace LapTimer
             //{
             //    txtRecieved.Text = newPacket;
             //}
-            txtRecieved.Text = newPacket;
+            //txtRecieved.Text = newPacket;
             ////txtPacketLength.Text = newPacket.Length.ToString();
-            //int calChkSum = 0;
-            ////if (newPacket.Length > 19)
-            ////{
+            int calChkSum = 0;
+            if (newPacket.Length > 19)
+            {
 
-            ////    i = 0;  //start index reading at 0
-            ////    int l = 4;  //packet length is 3 chars
-            ////    if (newPacket.Substring((nextIndex(i, l)), l) == "###")
-            ////    {
-            ////        txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
-            ////        int numberPackets = Convert.ToInt32(txtPacketNum.Text);
+                i = 0;  //start index reading at 0
+                int l = 4;  //packet length is 3 chars
+                if (newPacket.Substring((nextIndex(i, l)), l) == "###")
+                {
+                    txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    int numberPackets = Convert.ToInt32(txtPacketNum.Text);
 
-            ////        if (numberPackets == 999)
-            ////        {
-            ////            OverFlowNumber++;
-            ////            txtOverFlow.Text = Convert.ToString(OverFlowNumber);
-            ////        }
+                    if (numberPackets == 999)
+                    {
+                        OverFlowNumber++;
+                        txtOverFlow.Text = Convert.ToString(OverFlowNumber);
+                    }
 
-            ////        newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
+                    newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
 
-            //        l = 4;  //Analog ins are 4 chars each
+                    l = 4;  //Analog ins are 4 chars each
 
-            //        //txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
-            //        //txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
-            //        //txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
-            //        //txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
-            //        //txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
-            //        //txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
-            //        //txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    //txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
+                    //txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
+                    //txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
+                    //txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
+                    //txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
+                    //txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
+                    //txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
 
-            //        l = 3;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
-            //        //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    l = 3;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
+                            //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
 
-            //        for (i = 3; i < 34; i++)
-            //        {
-            //            calChkSum += (byte)newPacket[i];
-            //        }
-            //        calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
+                    for (i = 3; i < 34; i++)
+                    {
+                        calChkSum += (byte)newPacket[i];
+                    }
+                    calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
 
-            //        //txtCalChkSum.Text = Convert.ToString(calChkSum);
-            //        int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
-            //        if (recChkSum == calChkSum)
-            //        {
-            //            //DisplaySolarData(newPacket);
-            //        }
+                    //txtCalChkSum.Text = Convert.ToString(calChkSum);
+                    int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
+                    if (recChkSum == calChkSum)
+                    {
+                        //DisplaySolarData(newPacket);
+                    }
 
-            //        else
-            //        {
-            //            chkSumError++;
-            //            //txtChkSumError.Text = Convert.ToString(chkSumError);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        chkSumError++;
-            //        //txtChkSumError.Text = Convert.ToString(chkSumError);
-            //    }
+                    else
+                    {
+                        chkSumError++;
+                        //txtChkSumError.Text = Convert.ToString(chkSumError);
+                    }
+                }
+                else
+                {
+                    chkSumError++;
+                    //txtChkSumError.Text = Convert.ToString(chkSumError);
+                }
 
-            //}
+            }
         }
 
 

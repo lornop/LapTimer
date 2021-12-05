@@ -27,8 +27,8 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label FontSize="72">Rx:</Label>
-                <TextBox x:Name="txtRecieved" FontSize="72"/>
+                <Label FontSize="16">Rx:</Label>
+                <TextBox x:Name="txtRecieved" FontSize="16" Width="300"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
