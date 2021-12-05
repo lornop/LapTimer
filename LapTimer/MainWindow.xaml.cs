@@ -49,7 +49,7 @@ namespace LapTimer
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            serialPort.BaudRate = 115200;
+            serialPort.BaudRate = 9600;
             serialPort.ReceivedBytesThreshold = 1;
             serialPort.DataReceived += SerialPort_DataReceived;
             setSerialPort();
@@ -74,14 +74,14 @@ namespace LapTimer
 
             UpdateUI(text);
 
-            //if (txtRecieved.Dispatcher.CheckAccess())
-            //{
-            //    UpdateUI(text);
-            //}
-            //else
-            //{
-            //    txtRecieved.Dispatcher.Invoke(() => { UpdateUI(text); });
-            //}
+            if (txtRecieved.Dispatcher.CheckAccess())
+            {
+                UpdateUI(text);
+            }
+            else
+            {
+                txtRecieved.Dispatcher.Invoke(() => { UpdateUI(text); });
+            }
 
         }
 
@@ -107,65 +107,66 @@ namespace LapTimer
             //{
             //    txtRecieved.Text = newPacket;
             //}
-            //txtPacketLength.Text = newPacket.Length.ToString();
-            int calChkSum = 0;
-            if (newPacket.Length > 37)
-            {
+            txtRecieved.Text = newPacket;
+            ////txtPacketLength.Text = newPacket.Length.ToString();
+            //int calChkSum = 0;
+            ////if (newPacket.Length > 19)
+            ////{
 
-                i = 0;  //start index reading at 0
-                int l = 3;  //packet length is 3 chars
-                if (newPacket.Substring((nextIndex(i, l)), l) == "###")
-                {
-                    //txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
-                    //int numberPackets = Convert.ToInt32(txtPacketNum.Text);
+            ////    i = 0;  //start index reading at 0
+            ////    int l = 4;  //packet length is 3 chars
+            ////    if (newPacket.Substring((nextIndex(i, l)), l) == "###")
+            ////    {
+            ////        txtPacketNum.Text = newPacket.Substring((nextIndex(i, l)), l);
+            ////        int numberPackets = Convert.ToInt32(txtPacketNum.Text);
 
-                    //if (numberPackets == 999)
-                    //{
-                    //    OverFlowNumber++;
-                    //    txtOverFlow.Text = Convert.ToString(OverFlowNumber);
-                    //}
+            ////        if (numberPackets == 999)
+            ////        {
+            ////            OverFlowNumber++;
+            ////            txtOverFlow.Text = Convert.ToString(OverFlowNumber);
+            ////        }
 
-                    //newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
+            ////        newPacketNumber = Convert.ToInt32(txtPacketNum.Text);
 
-                    l = 4;  //Analog ins are 4 chars each
+            //        l = 4;  //Analog ins are 4 chars each
 
-                    //txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
-                    //txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
-                    //txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
-                    //txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
-                    //txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
-                    //txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
-                    //txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
+            //        //txtAN0.Text = newPacket.Substring((nextIndex(i, l)), l);    //Thermistor
+            //        //txtAN1.Text = newPacket.Substring((nextIndex(i, l)), l);    //Solar Panel
+            //        //txtAN2.Text = newPacket.Substring((nextIndex(i, l)), l);    //Capacitor
+            //        //txtAN3.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED1
+            //        //txtAN4.Text = newPacket.Substring((nextIndex(i, l)), l);    //LED2
+            //        //txtAN5.Text = newPacket.Substring((nextIndex(i, l)), l);    //Nothing
+            //        //txtBIN.Text = newPacket.Substring((nextIndex(i, l)), l);
 
-                    l = 3;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
-                    //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
+            //        l = 3;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
+            //        //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
 
-                    for (i = 3; i < 34; i++)
-                    {
-                        calChkSum += (byte)newPacket[i];
-                    }
-                    calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
+            //        for (i = 3; i < 34; i++)
+            //        {
+            //            calChkSum += (byte)newPacket[i];
+            //        }
+            //        calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
 
-                    //txtCalChkSum.Text = Convert.ToString(calChkSum);
-                    int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
-                    if (recChkSum == calChkSum)
-                    {
-                        //DisplaySolarData(newPacket);
-                    }
+            //        //txtCalChkSum.Text = Convert.ToString(calChkSum);
+            //        int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
+            //        if (recChkSum == calChkSum)
+            //        {
+            //            //DisplaySolarData(newPacket);
+            //        }
 
-                    else
-                    {
-                        chkSumError++;
-                        //txtChkSumError.Text = Convert.ToString(chkSumError);
-                    }
-                }
-                else
-                {
-                    chkSumError++;
-                    //txtChkSumError.Text = Convert.ToString(chkSumError);
-                }
+            //        else
+            //        {
+            //            chkSumError++;
+            //            //txtChkSumError.Text = Convert.ToString(chkSumError);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        chkSumError++;
+            //        //txtChkSumError.Text = Convert.ToString(chkSumError);
+            //    }
 
-            }
+            //}
         }
 
 
@@ -214,7 +215,7 @@ namespace LapTimer
                 txChkSum %= 1000;
                 stringBuilderSend.Remove(7, 3);
                 stringBuilderSend.Insert(7, txChkSum.ToString("D3"));
-                txtSend.Text = stringBuilderSend.ToString();
+                //txtSend.Text = stringBuilderSend.ToString();
 
 
                 string messageOut = stringBuilderSend.ToString();
@@ -242,65 +243,63 @@ namespace LapTimer
             //txtRecieved.Clear();
         }
 
-        private void btnBit3_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonClicked(3, 3);
-        }
+        //private void btnBit3_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ButtonClicked(3, 3);
+        //}
 
-        private void btnBit2_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonClicked(2, 3);
-        }
+        //private void btnBit2_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ButtonClicked(2, 3);
+        //}
 
-        private void btnBit1_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonClicked(1, 3);
-        }
+        //private void btnBit1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ButtonClicked(1, 3);
+        //}
 
-        private void btnBit0_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonClicked(0, 3);
-        }
+        //private void btnBit0_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ButtonClicked(0, 3);
+        //}
 
-        private void ButtonClicked(int v, int state)                //States are 0 = off, 1 = On and 3 = toggle
-        {
-            Button[] btnBit = new Button[] { btnBit0, btnBit1, btnBit2, btnBit3 };
+        //private void ButtonClicked(int v, int state)                //States are 0 = off, 1 = On and 3 = toggle
+        //{
+        //    Button[] btnBit = new Button[] { btnBit0, btnBit1, btnBit2, btnBit3 };
 
-            if (state == 0)
-            {
-                btnBit[v].Content = "0";
-                stringBuilderSend[v + 3] = '0';
-            }
+        //    if (state == 0)
+        //    {
+        //        btnBit[v].Content = "0";
+        //        stringBuilderSend[v + 3] = '0';
+        //    }
 
-            if (state == 1)
-            {
-                btnBit[v].Content = "1";
-                stringBuilderSend[v + 3] = '1';
-            }
+        //    if (state == 1)
+        //    {
+        //        btnBit[v].Content = "1";
+        //        stringBuilderSend[v + 3] = '1';
+        //    }
 
-            if (state == 3)
-            {
-                if (btnBit[v].Content.ToString() == "0")
-                {
-                    btnBit[v].Content = "1";
-                    stringBuilderSend[v + 3] = '1';
+        //    if (state == 3)
+        //    {
+        //        if (btnBit[v].Content.ToString() == "0")
+        //        {
+        //            btnBit[v].Content = "1";
+        //            stringBuilderSend[v + 3] = '1';
 
-                }
-                else
-                {
-                    btnBit[v].Content = "0";
-                    stringBuilderSend[v + 3] = '0';
-                }
-            }
+        //        }
+        //        else
+        //        {
+        //            btnBit[v].Content = "0";
+        //            stringBuilderSend[v + 3] = '0';
+        //        }
+        //    }
 
-            sendPacket();
-        }
+        //    sendPacket();
+        //}
 
         private void txtSend_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-    }
-}
     }
 }

@@ -27,6 +27,11 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
+                <Label FontSize="72">Rx:</Label>
+                <TextBox x:Name="txtRecieved" FontSize="72"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
                 <Label FontSize="72">Bike #:</Label>
                 <TextBox x:Name="txtBikeNumber" FontSize="72"/>
             </StackPanel>
