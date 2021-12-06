@@ -52,7 +52,7 @@ namespace LapTimer
 
 
 
-        Rider cecilia = new Rider();
+        Rider cecilia = new Rider("0c682433", "K. Roczen", "94");
 
 
 
@@ -68,6 +68,8 @@ namespace LapTimer
             serialPort.ReceivedBytesThreshold = 1;
             serialPort.DataReceived += SerialPort_DataReceived;
             setSerialPort();
+
+
         }
 
         private void setSerialPort()
@@ -190,10 +192,10 @@ namespace LapTimer
 
                 //int TimerDebouncer = Convert.ToInt32(timerTime);
 
-                if (timerTime > timerDebouncer)
-                {
+                //if (timerTime > timerDebouncer)
+                //{
 
-                }
+                //}
 
                 txtLapNumber.Text = Convert.ToString(cecilia.LapNumber);
             }

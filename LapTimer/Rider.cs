@@ -10,10 +10,9 @@ namespace LapTimer
 
     class Rider
     {
-        public string TagID;
+        public string TagID { get; set; }
         public string RiderName;
         public string RiderNumber;
-        public int LapTime;
         public int LapNumber;
 
 
@@ -30,6 +29,12 @@ namespace LapTimer
         }
 
 
+        public Rider(string TagNum, string Name, string bikeNumber)
+        {
+            TagID = TagNum;
+            RiderName = Name;
+            RiderNumber = bikeNumber;
+        }
 
 
 
