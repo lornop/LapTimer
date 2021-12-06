@@ -11,12 +11,9 @@ namespace LapTimer
     class Rider
     {
         public string TagID { get; set; }
-        public string RiderName;
-        public string RiderNumber;
-        public int LapNumber;
-
-
-        int lapcount1, lapcount2;
+        public string RiderName { get; set; }
+        public string RiderNumber { get; set; }
+        public int LapNumber { get; set; }
 
         DateTime lastLapTimeIn = new DateTime();
         TimeSpan lastLapTime = new TimeSpan();

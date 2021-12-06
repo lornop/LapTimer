@@ -52,7 +52,8 @@ namespace LapTimer
 
 
 
-        Rider cecilia = new Rider("0c682433", "K. Roczen", "94");
+        Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");
+        Rider Loren = new Rider("5cc5f032", "J. Barcia", "51");
 
 
 
@@ -183,8 +184,8 @@ namespace LapTimer
 
             if (txtTagUID.Text == "0c682433")
             {
-                txtName.Text = Convert.ToString(cecilia.RiderName);
-                txtBikeNumber.Text = Convert.ToString(cecilia.RiderNumber);
+                txtName.Text = Convert.ToString(Cecilia.RiderName);
+                txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
                 timerCurrentTime = DateTime.UtcNow;
                 //TimeSpan timerTime = timerCurrentTime - lastLapTime1;
 
@@ -197,7 +198,7 @@ namespace LapTimer
 
                 //}
 
-                txtLapNumber.Text = Convert.ToString(cecilia.LapNumber);
+                txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
             }
 
             if (txtTagUID.Text == "0c682433")
