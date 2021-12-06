@@ -17,19 +17,16 @@ namespace LapTimer
         public int LapNumber;
 
 
+        int lapcount1, lapcount2;
 
+        DateTime lastLapTimeIn = new DateTime();
+        TimeSpan lastLapTime = new TimeSpan();
+        TimeSpan fastLapTime = new TimeSpan();
 
-        /// <summary>
-        /// This timer is started when the player clicks 
-        /// two icons that don't match,
-        /// so it counts three quarters of a second 
-        /// and then turns itself off and hides both icons
-        /// </summary>
-        /// 
 
         public void RiderTimer()
         {
-            //time;
+            
         }
 
 

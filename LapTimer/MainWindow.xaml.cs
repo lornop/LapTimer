@@ -50,7 +50,11 @@ namespace LapTimer
 
         DateTime timerCurrentTime = new DateTime();
 
-        int lapcount1, lapcount2;
+
+
+        Rider cecilia = new Rider();
+
+
 
         public MainWindow()
         {
@@ -173,14 +177,25 @@ namespace LapTimer
 
         public void checkLaptime()
         {
-            
 
 
             if (txtTagUID.Text == "0c682433")
             {
-                txtName.Text = "K. Roczen";
-                txtBikeNumber.Text = "94";
-                txtLapNumber.Text = Convert.ToString(lapCount1);
+                txtName.Text = Convert.ToString(cecilia.RiderName);
+                txtBikeNumber.Text = Convert.ToString(cecilia.RiderNumber);
+                timerCurrentTime = DateTime.UtcNow;
+                //TimeSpan timerTime = timerCurrentTime - lastLapTime1;
+
+                TimeSpan timerDebouncer = new TimeSpan(0, 0, 5);
+
+                //int TimerDebouncer = Convert.ToInt32(timerTime);
+
+                if (timerTime > timerDebouncer)
+                {
+
+                }
+
+                txtLapNumber.Text = Convert.ToString(cecilia.LapNumber);
             }
 
             if (txtTagUID.Text == "0c682433")
