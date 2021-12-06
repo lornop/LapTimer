@@ -19,6 +19,11 @@
                 <ComboBox x:Name="comboBox1" Width="65" MouseEnter="comboBox1_MouseEnter"/>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnStart" Content="Start" FontSize="36" Background="Green" Click="btnStart_Click"/>
+            </StackPanel>
+
+
 
 
             <StackPanel Orientation="Horizontal">

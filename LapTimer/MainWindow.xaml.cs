@@ -37,9 +37,9 @@ namespace LapTimer
 
         SerialPort serialPort = new SerialPort();
 
-        //SolarCalc solarCalc = new SolarCalc();
-
         StringBuilder stringBuilderSend = new StringBuilder("###1111196");
+
+        DispatcherTimer dispatcherTimer =  new DispatcherTimer();
 
         public MainWindow()
         {
@@ -58,10 +58,6 @@ namespace LapTimer
         private void setSerialPort()
         {
             string[] ports = SerialPort.GetPortNames();
-            //foreach (string port in ports)
-                //{
-                //    comboBox1.Items.Add(port);
-                //}
             comboBox1.ItemsSource = ports;
             comboBox1.SelectedIndex = 0;
 
@@ -231,6 +227,28 @@ namespace LapTimer
 
         }
 
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
+
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (txtTagUID.Text == "0c682433")
+            {
+
+            }
+                        //Tags are
+                        //0c 68 24 33
+                        //5c c5 f0 32
+        }
+
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             //txtRecieved.Clear();
@@ -294,5 +312,7 @@ namespace LapTimer
         {
 
         }
+
+
     }
 }
