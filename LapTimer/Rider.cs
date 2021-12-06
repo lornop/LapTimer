@@ -29,7 +29,7 @@ namespace LapTimer
 
         public void RiderTimer()
         {
-            time;
+            //time;
         }
 
 

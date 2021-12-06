@@ -21,6 +21,12 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnStart" Content="Start" FontSize="36" Background="Green" Click="btnStart_Click"/>
+                <Button x:Name="btnStop" Content="Stop" FontSize="36" Background="Red" Click="btnStop_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Time:</Label>
+                <TextBox x:Name="txtTimer"/>
             </StackPanel>
 
 

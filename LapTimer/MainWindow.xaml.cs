@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.IO.Ports;
-
+using System.Timers;
+using System.Globalization;
 
 namespace LapTimer
 {
@@ -40,6 +41,16 @@ namespace LapTimer
         StringBuilder stringBuilderSend = new StringBuilder("###1111196");
 
         DispatcherTimer dispatcherTimer =  new DispatcherTimer();
+
+        String startTime = DateTime.Now.ToString("HH:mm:ss:fff");
+
+        String currentTime = DateTime.Now.ToString("HH:mm:ss:fff");
+
+        DateTime timerStartTime = new DateTime();
+
+        DateTime timerCurrentTime = new DateTime();
+
+        int lapcount1, lapcount2;
 
         public MainWindow()
         {
@@ -142,6 +153,8 @@ namespace LapTimer
                     {
                         //good to go
                         txtChkSumError.Text = Convert.ToString(chkSumError);
+
+                        checkLaptime();
                     }
                     else
                     {
@@ -154,6 +167,24 @@ namespace LapTimer
                     chkSumError++;
                     txtChkSumError.Text = Convert.ToString(chkSumError);
                 }
+
+            }
+        }
+
+        public void checkLaptime()
+        {
+            
+
+
+            if (txtTagUID.Text == "0c682433")
+            {
+                txtName.Text = "K. Roczen";
+                txtBikeNumber.Text = "94";
+                txtLapNumber.Text = Convert.ToString(lapCount1);
+            }
+
+            if (txtTagUID.Text == "0c682433")
+            {
 
             }
         }
@@ -228,25 +259,44 @@ namespace LapTimer
         }
 
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
+        public void btnStart_Click(object sender, RoutedEventArgs e)
         {
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
             dispatcherTimer.Start();
+
+            timerStartTime = DateTime.UtcNow;
+
+
+            
 
 
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        public void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (txtTagUID.Text == "0c682433")
-            {
 
-            }
-                        //Tags are
-                        //0c 68 24 33
-                        //5c c5 f0 32
+
+            timerCurrentTime = DateTime.UtcNow;
+            //date2 = new DateTime();
+            TimeSpan timerTime = timerCurrentTime - timerStartTime;
+
+            txtTimer.Text = timerTime.ToString();
+
+
+
+
+
+
+            //Tags are
+            //0c 68 24 33
+            //5c c5 f0 32
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Stop();
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
