@@ -15,10 +15,10 @@ namespace LapTimer
         public string RiderNumber { get; set; }
         public int LapNumber { get; set; }
 
-        DateTime lastLapTimeIn = new DateTime();
-        TimeSpan lastLapTime = new TimeSpan();
-        TimeSpan fastLapTime = new TimeSpan();
-
+        public DateTime lastLapTimeIn = new DateTime();
+        //public TimeSpan lastLapTime = new TimeSpan();
+        public TimeSpan fastLapTime = new TimeSpan();
+        public DateTime lastLapTime = new DateTime();
 
         public void RiderTimer()
         {

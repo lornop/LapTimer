@@ -50,6 +50,8 @@ namespace LapTimer
 
         DateTime timerCurrentTime = new DateTime();
 
+        TimeSpan timerDebouncer = new TimeSpan(0, 0, 5);        //5 second debounce between RFID Tag reads for the same rider
+
 
 
         Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");
@@ -180,30 +182,37 @@ namespace LapTimer
 
         public void checkLaptime()
         {
-
+            timerCurrentTime = DateTime.UtcNow;
 
             if (txtTagUID.Text == "0c682433")
             {
-                txtName.Text = Convert.ToString(Cecilia.RiderName);
-                txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
-                timerCurrentTime = DateTime.UtcNow;
-                //TimeSpan timerTime = timerCurrentTime - lastLapTime1;
+                
+                TimeSpan timerTime = timerCurrentTime - Cecilia.lastLapTime;
+                                
+                if (timerTime > timerDebouncer)
+                {
+                    Cecilia.LapNumber++;
+                    txtName.Text = Convert.ToString(Cecilia.RiderName);
+                    txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
+                    txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
+                    Cecilia.lastLapTime = Convert.ToDateTime(timerTime);
 
-                TimeSpan timerDebouncer = new TimeSpan(0, 0, 5);
+                }
 
-                //int TimerDebouncer = Convert.ToInt32(timerTime);
-
-                //if (timerTime > timerDebouncer)
-                //{
-
-                //}
-
-                txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
             }
 
             if (txtTagUID.Text == "0c682433")
             {
+                TimeSpan timerTime = timerCurrentTime - Loren.lastLapTime;
 
+                if (timerTime > timerDebouncer)
+                {
+                    Loren.LapNumber++;
+                    txtName.Text = Convert.ToString(Loren.RiderName);
+                    txtBikeNumber.Text = Convert.ToString(Loren.RiderNumber);
+                    txtLapNumber.Text = Convert.ToString(Loren.LapNumber);
+                    Loren.lastLapTime = Convert.ToDateTime(timerTime);
+                }
             }
         }
 
