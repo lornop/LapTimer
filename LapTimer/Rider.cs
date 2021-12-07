@@ -17,7 +17,7 @@ namespace LapTimer
 
         public DateTime lastLapTimeIn = new DateTime();
         public TimeSpan fastLapTime = new TimeSpan();
-        public TimeSpan lastLapTime = new TimeSpan();
+        public TimeSpan lastLapTime = new TimeSpan(0,0,0,0,0);
         public TimeSpan totalTime = new TimeSpan();
 
 

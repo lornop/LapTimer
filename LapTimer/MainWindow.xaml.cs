@@ -187,6 +187,16 @@ namespace LapTimer
             if (txtTagUID.Text == "5cc5f032")
             {
 
+                var date1 = new DateTime(0);
+                if (Cecilia.lastLapTimeIn == date1)
+                {
+                    Cecilia.lastLapTimeIn = timerStartTime;
+                }
+
+                if (Loren.lastLapTimeIn == date1)
+                {
+                    Loren.lastLapTimeIn = timerStartTime;
+                }
                 TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
 
                 if (newLapTime > timerDebouncer)
@@ -198,8 +208,6 @@ namespace LapTimer
                     txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
                     Cecilia.lastLapTime = newLapTime;
                     txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
-
-
 
                 }
 
@@ -218,6 +226,7 @@ namespace LapTimer
                     txtLapNumber.Text = Convert.ToString(Loren.LapNumber);
                     Loren.lastLapTime = newLapTime;
                     txtLapTime.Text = Loren.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
+
                 }
             }
         }
@@ -302,7 +311,9 @@ namespace LapTimer
             timerStartTime = DateTime.UtcNow;
 
 
-            
+
+
+
 
 
         }
@@ -322,6 +333,7 @@ namespace LapTimer
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
+
             dispatcherTimer.Stop();
         }
 
