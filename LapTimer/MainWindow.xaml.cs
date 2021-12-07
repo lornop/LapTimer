@@ -183,19 +183,21 @@ namespace LapTimer
         public void checkLaptime()
         {
             timerCurrentTime = DateTime.UtcNow;
-
-            if (txtTagUID.Text == "0c682433")
+            
+            if (txtTagUID.Text == "5cc5f032")
             {
-                
-                TimeSpan timerTime = timerCurrentTime - Cecilia.lastLapTime;
-                                
-                if (timerTime > timerDebouncer)
+
+                TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
+
+                if (newLapTime > timerDebouncer)
                 {
+                    Cecilia.lastLapTimeIn = timerCurrentTime;
                     Cecilia.LapNumber++;
                     txtName.Text = Convert.ToString(Cecilia.RiderName);
                     txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
                     txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
-                    Cecilia.lastLapTime = Convert.ToDateTime(timerTime);
+                    Cecilia.lastLapTime = newLapTime;
+                    txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
 
                 }
 
@@ -203,15 +205,17 @@ namespace LapTimer
 
             if (txtTagUID.Text == "0c682433")
             {
-                TimeSpan timerTime = timerCurrentTime - Loren.lastLapTime;
+                TimeSpan newLapTime = timerCurrentTime - Loren.lastLapTimeIn;
 
-                if (timerTime > timerDebouncer)
+                if (newLapTime > timerDebouncer)
                 {
+                    Loren.lastLapTimeIn = timerCurrentTime;
                     Loren.LapNumber++;
                     txtName.Text = Convert.ToString(Loren.RiderName);
                     txtBikeNumber.Text = Convert.ToString(Loren.RiderNumber);
                     txtLapNumber.Text = Convert.ToString(Loren.LapNumber);
-                    Loren.lastLapTime = Convert.ToDateTime(timerTime);
+                    Loren.lastLapTime = newLapTime;
+                    txtLapTime.Text = Loren.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
                 }
             }
         }
@@ -306,19 +310,12 @@ namespace LapTimer
 
 
             timerCurrentTime = DateTime.UtcNow;
-            //date2 = new DateTime();
+
             TimeSpan timerTime = timerCurrentTime - timerStartTime;
 
-            txtTimer.Text = timerTime.ToString();
+           
+            txtTimer.Text = timerTime.ToString(@"hh\:mm\:ss\.fff");
 
-
-
-
-
-
-            //Tags are
-            //0c 68 24 33
-            //5c c5 f0 32
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)

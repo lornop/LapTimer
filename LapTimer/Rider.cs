@@ -16,9 +16,8 @@ namespace LapTimer
         public int LapNumber { get; set; }
 
         public DateTime lastLapTimeIn = new DateTime();
-        //public TimeSpan lastLapTime = new TimeSpan();
         public TimeSpan fastLapTime = new TimeSpan();
-        public DateTime lastLapTime = new DateTime();
+        public TimeSpan lastLapTime = new TimeSpan();
 
         public void RiderTimer()
         {
@@ -31,6 +30,7 @@ namespace LapTimer
             TagID = TagNum;
             RiderName = Name;
             RiderNumber = bikeNumber;
+           
         }
 
 
