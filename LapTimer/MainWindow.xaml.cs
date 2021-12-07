@@ -199,6 +199,8 @@ namespace LapTimer
                     Cecilia.lastLapTime = newLapTime;
                     txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
 
+
+
                 }
 
             }

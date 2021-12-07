@@ -9,7 +9,7 @@
 
     <!--xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"-->
 
-    <StackPanel Background="White" >
+    <StackPanel Background="Black" >
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="800">
 
@@ -20,36 +20,38 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnStart" Content="Start" FontSize="36" Background="Green" Click="btnStart_Click"/>
-                <Button x:Name="btnStop" Content="Stop" FontSize="36" Background="Red" Click="btnStop_Click"/>
+                <Button x:Name="btnStart" Content="Start" FontSize="36" Background="Green" Foreground="White" Click="btnStart_Click"/>
+                <Button x:Name="btnStop" Content="Stop" FontSize="36" Background="Red" Foreground="White" Click="btnStop_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Stretch">
+                <Label Foreground="White" FontSize="86">Time:</Label>
+                <TextBox x:Name="txtTimer" Foreground="OrangeRed" Background="Black" FontSize="86"/>
+            </StackPanel>
+
+
+
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,9">
+                <TextBox Foreground="White" x:Name="txtName" FontSize="72" Background="Black" />
+                <Label FontSize="72" Foreground="White"> # </Label>
+                <TextBox x:Name="txtBikeNumber" FontSize="72" Foreground="White" Background="Black" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label>Time:</Label>
-                <TextBox x:Name="txtTimer"/>
+                
+                
             </StackPanel>
 
-
-
-
-            <StackPanel Orientation="Horizontal">
-                <Label FontSize="72">Name:</Label>
-                <TextBox x:Name="txtName" FontSize="72"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Label FontSize="72">Bike #:</Label>
-                <TextBox x:Name="txtBikeNumber" FontSize="72"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Label FontSize="72" Foreground="White">Lap:</Label>
+                <TextBox x:Name="txtLapNumber" FontSize="72" Foreground="White" Background="Black" />
+                <Label FontSize="72" Foreground="White">Time:</Label>
+                <TextBox x:Name="txtLapTime" FontSize="72" Foreground="White" Background="Black" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label FontSize="72">Lap #:</Label>
-                <TextBox x:Name="txtLapNumber" FontSize="72"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <Label FontSize="72">Lap Time:</Label>
-                <TextBox x:Name="txtLapTime" FontSize="72"/>
+                
             </StackPanel>
         </StackPanel>
 
@@ -59,19 +61,21 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Label FontSize="16">Rx:</Label>
-            <TextBox x:Name="txtRecieved" FontSize="16" Width="300"/>
+            <Label FontSize="10" Foreground="Gray" Background="Black">Rx:</Label>
+            <TextBox x:Name="txtRecieved" FontSize="10" Foreground="Gray" Background="Black"/>
+            <Label FontSize="10" Foreground="Gray" Background="Black">UID:</Label>
+            <TextBox x:Name="txtTagUID" FontSize="10" Foreground="Gray" Background="Black"/>
+            <Label FontSize="10" Foreground="Gray" Background="Black">Errors:</Label>
+            <TextBox x:Name="txtChkSumError" FontSize="10" Foreground="Gray" Background="Black"/>
+        </StackPanel>
+
+        <!--<StackPanel Orientation="Horizontal">
+            
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Label FontSize="16">UID:</Label>
-            <TextBox x:Name="txtTagUID" FontSize="16" Width="300"/>
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal">
-            <Label FontSize="16">Errors:</Label>
-            <TextBox x:Name="txtChkSumError" FontSize="16" Width="300"/>
-        </StackPanel>
+            
+        </StackPanel>-->
 
     </StackPanel>
 
