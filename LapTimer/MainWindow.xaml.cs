@@ -48,15 +48,19 @@ namespace LapTimer
 
         DateTime timerStartTime = new DateTime();
 
-        DateTime timerCurrentTime = new DateTime();
+        public DateTime timerCurrentTime = new DateTime();
 
         TimeSpan timerDebouncer = new TimeSpan(0, 0, 5);        //5 second debounce between RFID Tag reads for the same rider
+
+        String TagUID;
 
 
 
         Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");
-        Rider Loren = new Rider("5cc5f032", "J. Barcia", "51");
+        Rider Loren = new Rider("5cc5f032", "L. Olsen", "800");
 
+        //Rider 5cc5f032 = new Rider("5cc5f032", "L. Olsen", "800");
+        //Rider 5cc5f032 = new Rider("5cc5f032", "Loren", "3" );
 
 
         public MainWindow()
@@ -71,6 +75,15 @@ namespace LapTimer
             serialPort.ReceivedBytesThreshold = 1;
             serialPort.DataReceived += SerialPort_DataReceived;
             setSerialPort();
+
+            //var account = new BankAccount("<name>", 1000);
+            var riderTagNum = new Rider("<TagID>", "<name>", "<num>");
+            for(int i = 0; i < 2; i++)
+            {
+                //riderTagNum = "5cc5f032";
+
+            }
+
 
 
         }
@@ -137,7 +150,9 @@ namespace LapTimer
 
                     l = 8;  //RFID Tag UID are 8 chars long
 
-                    txtTagUID.Text = newPacket.Substring((nextIndex(i, l)), l);
+                    TagUID = Convert.ToString(newPacket.Substring((nextIndex(i, l)), l));
+                    txtTagUID.Text = TagUID;
+                    //txtTagUID.Text = newPacket.Substring((nextIndex(i, l)), l);
 
 
 
@@ -163,6 +178,9 @@ namespace LapTimer
                         //good to go
                         txtChkSumError.Text = Convert.ToString(chkSumError);
 
+                        //5cc5f032.checkLaptime(TagUID);
+                        //Cecilia.checkLaptime(TagUID);
+                        //tagUID.checkLaptime(TagUID);
                         checkLaptime();
                     }
                     else
@@ -182,21 +200,19 @@ namespace LapTimer
 
         public void checkLaptime()
         {
-            timerCurrentTime = DateTime.UtcNow;
-            
+            //timerCurrentTime = DateTime.UtcNow;
+
+            var date1 = new DateTime(0);
             if (txtTagUID.Text == "5cc5f032")
             {
 
-                var date1 = new DateTime(0);
+                
                 if (Cecilia.lastLapTimeIn == date1)
                 {
                     Cecilia.lastLapTimeIn = timerStartTime;
                 }
 
-                if (Loren.lastLapTimeIn == date1)
-                {
-                    Loren.lastLapTimeIn = timerStartTime;
-                }
+
                 TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
 
                 if (newLapTime > timerDebouncer)
@@ -215,6 +231,10 @@ namespace LapTimer
 
             if (txtTagUID.Text == "0c682433")
             {
+                if (Loren.lastLapTimeIn == date1)
+                {
+                    Loren.lastLapTimeIn = timerStartTime;
+                }
                 TimeSpan newLapTime = timerCurrentTime - Loren.lastLapTimeIn;
 
                 if (newLapTime > timerDebouncer)
@@ -303,18 +323,10 @@ namespace LapTimer
 
         public void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
             dispatcherTimer.Start();
-
             timerStartTime = DateTime.UtcNow;
-
-
-
-
-
-
 
         }
 
