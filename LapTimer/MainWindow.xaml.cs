@@ -77,7 +77,7 @@ namespace LapTimer
             setSerialPort();
 
             //var account = new BankAccount("<name>", 1000);
-            var riderTagNum = new Rider("<TagID>", "<name>", "<num>");
+            var riderTagNum = new Rider("TagID", "<name>", "<num>");
             for(int i = 0; i < 2; i++)
             {
                 //riderTagNum = "5cc5f032";
@@ -226,7 +226,6 @@ namespace LapTimer
                     txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
 
                 }
-
             }
 
             if (txtTagUID.Text == "0c682433")

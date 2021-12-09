@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LapTimer"
         mc:Ignorable="d"
-        Title="LapTimer" Height="600" Width="1200">
+        Title="LapTimer" WindowState="Maximized"><!--//Height="600" Width="1200"-->
+
 
     <!--xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"-->
 
     <StackPanel Background="Black" >
         
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="800">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnOpenClose" Content="Open" Click="btnOpenClose_Click"/>
@@ -25,17 +26,17 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Stretch">
-                <Label Foreground="White" FontSize="86">Time:</Label>
-                <TextBox x:Name="txtTimer" Foreground="OrangeRed" Background="Black" FontSize="86"/>
+                <Label Foreground="White" FontSize="200">Time:</Label>
+                <TextBox x:Name="txtTimer" Foreground="OrangeRed" Background="Black" FontSize="200"/>
             </StackPanel>
 
 
 
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,9">
-                <TextBox Foreground="White" x:Name="txtName" FontSize="72" Background="Black" />
-                <Label FontSize="72" Foreground="White"> # </Label>
-                <TextBox x:Name="txtBikeNumber" FontSize="72" Foreground="White" Background="Black" />
+                <TextBox Foreground="White" x:Name="txtName" FontSize="200" Background="Black" />
+                <Label FontSize="200" Foreground="White"> # </Label>
+                <TextBox x:Name="txtBikeNumber" FontSize="200" Foreground="White" Background="Black" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
@@ -44,10 +45,10 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Label FontSize="72" Foreground="White">Lap:</Label>
-                <TextBox x:Name="txtLapNumber" FontSize="72" Foreground="White" Background="Black" />
-                <Label FontSize="72" Foreground="White">Time:</Label>
-                <TextBox x:Name="txtLapTime" FontSize="72" Foreground="White" Background="Black" />
+                <Label FontSize="200" Foreground="White">Lap:</Label>
+                <TextBox x:Name="txtLapNumber" FontSize="200" Foreground="White" Background="Black" />
+                <Label FontSize="200" Foreground="White"> :</Label>
+                <TextBox x:Name="txtLapTime" FontSize="200" Foreground="White" Background="Black" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">

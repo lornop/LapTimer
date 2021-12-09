@@ -37,42 +37,57 @@ namespace LapTimer
         }
 
 
-        //public void checkLaptime(String UID)
+        //public void newcheckLaptime(String UID)
         //{
-        //    timerCurrentTime = DateTime.UtcNow;
+        //    //timerCurrentTime = DateTime.UtcNow;
 
-        //    if (UID ==  )
+        //    var date1 = new DateTime(0);
+        //    if (UID == "5cc5f032")
+        //    {
 
 
-        //        if (UID == "5cc5f032")
+        //        if (this.lastLapTimeIn == date1)
         //        {
+        //            this.lastLapTimeIn = timerStartTime;
+        //        }
 
-        //            var date1 = new DateTime(0);
-        //            if (Cecilia.lastLapTimeIn == date1)
-        //            {
-        //                Cecilia.lastLapTimeIn = timerStartTime;
-        //            }
 
-        //            if (Loren.lastLapTimeIn == date1)
-        //            {
-        //                Loren.lastLapTimeIn = timerStartTime;
-        //            }
-        //            TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
+        //        TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
 
-        //            if (newLapTime > timerDebouncer)
-        //            {
-        //                Cecilia.lastLapTimeIn = timerCurrentTime;
-        //                Cecilia.LapNumber++;
-        //                txtName.Text = Convert.ToString(Cecilia.RiderName);
-        //                txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
-        //                txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
-        //                Cecilia.lastLapTime = newLapTime;
-        //                txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
-
-        //            }
+        //        if (newLapTime > timerDebouncer)
+        //        {
+        //            Cecilia.lastLapTimeIn = timerCurrentTime;
+        //            Cecilia.LapNumber++;
+        //            txtName.Text = Convert.ToString(Cecilia.RiderName);
+        //            txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
+        //            txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
+        //            Cecilia.lastLapTime = newLapTime;
+        //            txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
 
         //        }
 
+        //    }
+
+        //    if (txtTagUID.Text == "0c682433")
+        //    {
+        //        if (Loren.lastLapTimeIn == date1)
+        //        {
+        //            Loren.lastLapTimeIn = timerStartTime;
+        //        }
+        //        TimeSpan newLapTime = timerCurrentTime - Loren.lastLapTimeIn;
+
+        //        if (newLapTime > timerDebouncer)
+        //        {
+        //            Loren.lastLapTimeIn = timerCurrentTime;
+        //            Loren.LapNumber++;
+        //            txtName.Text = Convert.ToString(Loren.RiderName);
+        //            txtBikeNumber.Text = Convert.ToString(Loren.RiderNumber);
+        //            txtLapNumber.Text = Convert.ToString(Loren.LapNumber);
+        //            Loren.lastLapTime = newLapTime;
+        //            txtLapTime.Text = Loren.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
+
+        //        }
+        //    }
         //}
 
     }
