@@ -56,7 +56,7 @@ namespace LapTimer
         //Create two riders.
         Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");   
         Rider Loren = new Rider("5cc5f032", "L. Olsen", "800");
-
+        //I think if I named these after the UID instead of names it would have been easire to get the class more functional
 
 
         public MainWindow()
@@ -126,39 +126,27 @@ namespace LapTimer
                     string packetnum = newPacket.Substring((nextIndex(i, l)), l);
                     int numberPackets =  Convert.ToInt32(packetnum);
 
-
                     if (numberPackets == 999)
                     {
                         OverFlowNumber++;
-                        //txtOverFlow.Text = Convert.ToString(OverFlowNumber);
-                    }
 
+                    }
 
                     l = 8;  //RFID Tag UID are 8 chars long
 
                     TagUID = Convert.ToString(newPacket.Substring((nextIndex(i, l)), l));
                     txtTagUID.Text = TagUID;
-                    //txtTagUID.Text = newPacket.Substring((nextIndex(i, l)), l);
-
 
 
                     l = 4;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
-                            //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
-
-                    for (i = 3; i < 16; i++)
-                    {
-                        calChkSum += (byte)newPacket[i];
-                    }
-                    calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
-
 
                     string checksum = newPacket.Substring((nextIndex(i, l)), l);
-                    int recvdCheckSum = Convert.ToInt32(newPacket.Substring(16, 3));
-                    if (checksum == "UUUU")     //I had a hard time with the checksum. If my binary is correct UUUU should be a string of alternating 1s and 0s. Next best thing
+
+                    if (checksum == "UUUU")     //I had a hard time with the checksum in arduino. If my binary is correct UUUU should be a string of alternating 1s and 0s. Next best thing
                     {
                         //All is good, Check the lap time of the tag just in
                         txtChkSumError.Text = Convert.ToString(chkSumError);
-                        checkLaptime(); 
+                        checkLaptime();
                     }
                     else
                     {
@@ -176,20 +164,44 @@ namespace LapTimer
             }
         }
 
-        public void checkLaptime()
+        //Create a Timer to be used with a tick interval of 1ms when the start button is pressed 
+        public void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+            dispatcherTimer.Start();
+            timerStartTime = DateTime.UtcNow;
+
+        }
+
+        //The main timer for the program
+        public void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            timerCurrentTime = DateTime.UtcNow;
+            TimeSpan timerTime = timerCurrentTime - timerStartTime;
+            txtTimer.Text = timerTime.ToString(@"hh\:mm\:ss\.fff");
+
+        }
+
+        //Stop the timer when the stop button is pressed
+        private void btnStop_Click(object sender, RoutedEventArgs e)
         {
 
+            dispatcherTimer.Stop();
+        }
+
+
+        public void checkLaptime()
+        {
 
             var date1 = new DateTime(0);        //Get the current time
             if (txtTagUID.Text == "5cc5f032")
             {
 
-                
                 if (Cecilia.lastLapTimeIn == date1) //Fix some errors for the first lap
                 {
                     Cecilia.lastLapTimeIn = timerStartTime;
                 }
-
 
                 TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;  //Get teh timespan between the current time and the last time the rider clocked in
 
@@ -264,33 +276,6 @@ namespace LapTimer
         }
 
 
-        public void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
-            dispatcherTimer.Start();
-            timerStartTime = DateTime.UtcNow;
-
-        }
-
-        public void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-
-
-            timerCurrentTime = DateTime.UtcNow;
-
-            TimeSpan timerTime = timerCurrentTime - timerStartTime;
-
-           
-            txtTimer.Text = timerTime.ToString(@"hh\:mm\:ss\.fff");
-
-        }
-
-        private void btnStop_Click(object sender, RoutedEventArgs e)
-        {
-
-            dispatcherTimer.Stop();
-        }
 
 
 
