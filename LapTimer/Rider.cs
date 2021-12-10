@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LapTimer
 {
 
-
+    //Create a new class for the riders
     public class Rider
     {
         public DateTime timerCurrentTime = new DateTime();
@@ -35,7 +35,9 @@ namespace LapTimer
             RiderNumber = bikeNumber;
 
         }
-
+        //I tried to get more functionality out of the class, but couldnt figure it out. Needs work.
+        //I felt like all the examples we did, had this working, but they were independant of each other
+        //with no other inputs. Im not really sure, I need to do more research. 
 
         //public void newcheckLaptime(String UID)
         //{

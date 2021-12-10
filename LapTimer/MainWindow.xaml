@@ -16,7 +16,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnOpenClose" Content="Open" Click="btnOpenClose_Click"/>
-                <Button x:Name="btnClear" Content="Clear" Click="btnClear_Click"/>
+                
                 <ComboBox x:Name="comboBox1" Width="65" MouseEnter="comboBox1_MouseEnter"/>
             </StackPanel>
 
@@ -46,7 +46,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <Label FontSize="200" Foreground="White">Lap:</Label>
-                <TextBox x:Name="txtLapNumber" FontSize="200" Foreground="White" Background="Black" />
+                <TextBox x:Name="txtLapNumber" FontSize="200" Foreground="BlueViolet"  Background="Black" />
                 <Label FontSize="200" Foreground="White"> :</Label>
                 <TextBox x:Name="txtLapTime" FontSize="200" Foreground="White" Background="Black" />
             </StackPanel>

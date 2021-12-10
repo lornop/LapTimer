@@ -38,29 +38,25 @@ namespace LapTimer
 
         SerialPort serialPort = new SerialPort();
 
-        StringBuilder stringBuilderSend = new StringBuilder("###1111196");
-
         DispatcherTimer dispatcherTimer =  new DispatcherTimer();
 
-        String startTime = DateTime.Now.ToString("HH:mm:ss:fff");
+        String startTime = DateTime.Now.ToString("HH:mm:ss:fff");   //The time when the start button is pushed
 
-        String currentTime = DateTime.Now.ToString("HH:mm:ss:fff");
+        String currentTime = DateTime.Now.ToString("HH:mm:ss:fff"); //Time it is currently
 
-        DateTime timerStartTime = new DateTime();
+        DateTime timerStartTime = new DateTime();       //Used to calculate the lap times
 
-        public DateTime timerCurrentTime = new DateTime();
+        public DateTime timerCurrentTime = new DateTime();  //Used to calculate lap times
 
         TimeSpan timerDebouncer = new TimeSpan(0, 0, 5);        //5 second debounce between RFID Tag reads for the same rider
 
-        String TagUID;
+        String TagUID;      //The Unique ID from the RFID Tag
 
 
-
-        Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");
+        //Create two riders.
+        Rider Cecilia = new Rider("0c682433", "K. Roczen", "94");   
         Rider Loren = new Rider("5cc5f032", "L. Olsen", "800");
 
-        //Rider 5cc5f032 = new Rider("5cc5f032", "L. Olsen", "800");
-        //Rider 5cc5f032 = new Rider("5cc5f032", "Loren", "3" );
 
 
         public MainWindow()
@@ -75,16 +71,6 @@ namespace LapTimer
             serialPort.ReceivedBytesThreshold = 1;
             serialPort.DataReceived += SerialPort_DataReceived;
             setSerialPort();
-
-            //var account = new BankAccount("<name>", 1000);
-            var riderTagNum = new Rider("TagID", "<name>", "<num>");
-            for(int i = 0; i < 2; i++)
-            {
-                //riderTagNum = "5cc5f032";
-
-            }
-
-
 
         }
 
@@ -159,29 +145,20 @@ namespace LapTimer
                     l = 4;  //Checksum is the last 3 digits. Shouldnt reallly need this but just in case we add to the protocol ....
                             //txtRXChkSum.Text = newPacket.Substring((nextIndex(i, l)), l);
 
-                    //    for (i = 3; i < 34; i++)
-                    //    {
-                    //        calChkSum += (byte)newPacket[i];
-                    //    }
-                    //    calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
+                    for (i = 3; i < 16; i++)
+                    {
+                        calChkSum += (byte)newPacket[i];
+                    }
+                    calChkSum %= 1000;  //To get the last threee digits like in the recieved protocol
 
-                    //    //txtCalChkSum.Text = Convert.ToString(calChkSum);
-                    //    int recChkSum = Convert.ToInt32(newPacket.Substring(34, 3));
-                    //    if (recChkSum == calChkSum)
-                    //    {
-                    //        //DisplaySolarData(newPacket);
-                    //    }
 
                     string checksum = newPacket.Substring((nextIndex(i, l)), l);
-                    if (checksum == "UUUU")
+                    int recvdCheckSum = Convert.ToInt32(newPacket.Substring(16, 3));
+                    if (checksum == "UUUU")     //I had a hard time with the checksum. If my binary is correct UUUU should be a string of alternating 1s and 0s. Next best thing
                     {
-                        //good to go
+                        //All is good, Check the lap time of the tag just in
                         txtChkSumError.Text = Convert.ToString(chkSumError);
-
-                        //5cc5f032.checkLaptime(TagUID);
-                        //Cecilia.checkLaptime(TagUID);
-                        //tagUID.checkLaptime(TagUID);
-                        checkLaptime();
+                        checkLaptime(); 
                     }
                     else
                     {
@@ -189,6 +166,7 @@ namespace LapTimer
                         txtChkSumError.Text = Convert.ToString(chkSumError);
                     }
                 }
+
                 else
                 {
                     chkSumError++;
@@ -200,35 +178,35 @@ namespace LapTimer
 
         public void checkLaptime()
         {
-            //timerCurrentTime = DateTime.UtcNow;
 
-            var date1 = new DateTime(0);
+
+            var date1 = new DateTime(0);        //Get the current time
             if (txtTagUID.Text == "5cc5f032")
             {
 
                 
-                if (Cecilia.lastLapTimeIn == date1)
+                if (Cecilia.lastLapTimeIn == date1) //Fix some errors for the first lap
                 {
                     Cecilia.lastLapTimeIn = timerStartTime;
                 }
 
 
-                TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;
+                TimeSpan newLapTime = timerCurrentTime - Cecilia.lastLapTimeIn;  //Get teh timespan between the current time and the last time the rider clocked in
 
-                if (newLapTime > timerDebouncer)
+                if (newLapTime > timerDebouncer)        //Debounce the timer
                 {
-                    Cecilia.lastLapTimeIn = timerCurrentTime;
+                    Cecilia.lastLapTimeIn = timerCurrentTime;       //Get the new lap time and print it out
                     Cecilia.LapNumber++;
                     txtName.Text = Convert.ToString(Cecilia.RiderName);
                     txtBikeNumber.Text = Convert.ToString(Cecilia.RiderNumber);
                     txtLapNumber.Text = Convert.ToString(Cecilia.LapNumber);
                     Cecilia.lastLapTime = newLapTime;
-                    txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");
+                    txtLapTime.Text = Cecilia.lastLapTime.ToString(@"hh\:mm\:ss\.fff");     //Format the laptime for printing
 
                 }
             }
 
-            if (txtTagUID.Text == "0c682433")
+            if (txtTagUID.Text == "0c682433")   //See comments above. 
             {
                 if (Loren.lastLapTimeIn == date1)
                 {
@@ -279,40 +257,6 @@ namespace LapTimer
 
         }
 
-        private void btnSend_Click(object sender, RoutedEventArgs e)
-        {
-            sendPacket();
-        }
-
-        private void sendPacket()
-        {
-            try
-            {
-                int txChkSum = 0;
-                for (int i = 3; i < 7; i++)
-                {
-                    txChkSum += (byte)stringBuilderSend[i];
-                }
-                txChkSum %= 1000;
-                stringBuilderSend.Remove(7, 3);
-                stringBuilderSend.Insert(7, txChkSum.ToString("D3"));
-                //txtSend.Text = stringBuilderSend.ToString();
-
-
-                string messageOut = stringBuilderSend.ToString();
-
-                messageOut += "\r\n";                   //add CR and LF
-                byte[] messageBytes = Encoding.UTF8.GetBytes(messageOut);   //Convert the textbox to an array of bytes(UTF8)
-                serialPort.Write(messageBytes, 0, messageBytes.Length);     //Write to the serial port the bytes, 0 offset, how many bytes are in the array
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-        }
 
         private void txtSend_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -348,69 +292,14 @@ namespace LapTimer
             dispatcherTimer.Stop();
         }
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
-            //txtRecieved.Clear();
-        }
 
-        //private void btnBit3_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ButtonClicked(3, 3);
-        //}
-
-        //private void btnBit2_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ButtonClicked(2, 3);
-        //}
-
-        //private void btnBit1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ButtonClicked(1, 3);
-        //}
-
-        //private void btnBit0_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ButtonClicked(0, 3);
-        //}
-
-        //private void ButtonClicked(int v, int state)                //States are 0 = off, 1 = On and 3 = toggle
-        //{
-        //    Button[] btnBit = new Button[] { btnBit0, btnBit1, btnBit2, btnBit3 };
-
-        //    if (state == 0)
-        //    {
-        //        btnBit[v].Content = "0";
-        //        stringBuilderSend[v + 3] = '0';
-        //    }
-
-        //    if (state == 1)
-        //    {
-        //        btnBit[v].Content = "1";
-        //        stringBuilderSend[v + 3] = '1';
-        //    }
-
-        //    if (state == 3)
-        //    {
-        //        if (btnBit[v].Content.ToString() == "0")
-        //        {
-        //            btnBit[v].Content = "1";
-        //            stringBuilderSend[v + 3] = '1';
-
-        //        }
-        //        else
-        //        {
-        //            btnBit[v].Content = "0";
-        //            stringBuilderSend[v + 3] = '0';
-        //        }
-        //    }
-
-        //    sendPacket();
-        //}
 
         private void txtSend_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+
+
 
 
     }
